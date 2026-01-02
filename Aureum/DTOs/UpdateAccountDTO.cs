@@ -5,11 +5,15 @@ namespace Aureum.DTOs
 {
     public record UpdateAccountDTO
     {
-        public AccountType? AccountType { get; init; }
+        [Required]
+        public AccountType AccountType { get; init; }
+        [Required]
         [Range(0.01, double.MaxValue)]
-        public decimal? Price { get; init; }
+        public decimal Price { get; init; }
         [StringLength(200, MinimumLength = 3)]
-        public string? Description { get; init; }
-        public DateOnly? DateOfPurchase { get; init; }
+        [Required]
+        public string Description { get; init; }
+        [Required]
+        public DateOnly DateOfPurchase { get; init; }
     }
 }

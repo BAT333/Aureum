@@ -129,7 +129,7 @@ namespace Aureum.Controllers
         [HttpPatch("{id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public ActionResult Patch(long id, [FromBody] UpdateAccountDTO accountDto)
+        public ActionResult Patch(long id, [FromBody] PatchAccountDTO accountDto)
         {
             Account? account = _context.Accounts.FirstOrDefault(account => account.Id == id);
             if (account == null) return NotFound();
