@@ -13,7 +13,7 @@ namespace Aureum.Controllers
     /// </summary>
     [ApiController]
     [Route("[controller]")]
-    public class AureumController : ControllerBase
+    public class AccountController : ControllerBase
     {
         private readonly AureumContext _context;
         private readonly IMapper _mapper;
@@ -23,7 +23,7 @@ namespace Aureum.Controllers
         /// </summary>
         /// <param name="context">Communicates with database</param>
         /// <param name="mapper">Converts a type</param>
-        public AureumController(AureumContext context, IMapper mapper)
+        public AccountController(AureumContext context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;
