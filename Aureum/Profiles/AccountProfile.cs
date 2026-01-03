@@ -10,7 +10,6 @@ namespace Aureum.Profiles
         {
             CreateMap<CreateAccountDTO, Account>();
             CreateMap<UpdateAccountDTO, Account>();
-            CreateMap<Account, UpdateAccountDTO>();
             CreateMap<Account, ReadAccountDTO>();
         }
     }

@@ -9,7 +9,7 @@ namespace Aureum.Controllers
 {
 
     /// <summary>
-    /// Controller Aureum
+    /// Controller Account
     /// </summary>
     [ApiController]
     [Route("[controller]")]
@@ -152,7 +152,7 @@ namespace Aureum.Controllers
         {
             Account? account = _context.Accounts.FirstOrDefault(account => account.Id == id);
             if (account == null) return NotFound();
-            _context.Remove(account);
+            _context.Accounts.Remove(account);
             _context.SaveChanges();
             return NoContent();
         }
