@@ -1,4 +1,4 @@
-﻿using Aureum.DTOs.Customer;
+﻿using Aureum.DTOs.CustomerDTO;
 using Aureum.Models;
 using AutoMapper;
 

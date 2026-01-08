@@ -1,8 +1,10 @@
 ﻿using Aureum.Data;
 using Aureum.DTOs;
+using Aureum.DTOs.AccountDTO;
 using Aureum.Models;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 
 namespace Aureum.Controllers
@@ -43,8 +45,10 @@ namespace Aureum.Controllers
         public ActionResult<ReadAccountDTO> Post([FromBody] CreateAccountDTO accountDto)
         {
             Account account = _mapper.Map<Account>(accountDto);
+
             _context.Accounts.Add(account);
             _context.SaveChanges();
+
             return CreatedAtAction(nameof(GetById), new { id = account.Id }, _mapper.Map<ReadAccountDTO>(account));
         }
 
@@ -64,7 +68,7 @@ namespace Aureum.Controllers
             skip = Math.Max(skip, 0);
             int totalRecords = _context.Accounts.Count();
 
-            List<Account> accounts = _context.Accounts.Skip(skip).Take(take).ToList();
+            List<Account> accounts = _context.Accounts.Include(a => a.Customer).Skip(skip).Take(take).ToList();
 
             var readDTO = _mapper.Map<IReadOnlyList<ReadAccountDTO>>(accounts);
             var result = new PagedResultDTO<ReadAccountDTO>(totalRecords, skip, take, readDTO);
@@ -86,7 +90,7 @@ namespace Aureum.Controllers
 
         public ActionResult<ReadAccountDTO> GetById(long id)
         {
-            Account? accounts = _context.Accounts.FirstOrDefault(accounts => accounts.Id == id);
+            Account? accounts = _context.Accounts.Include(a => a.Customer).FirstOrDefault(accounts => accounts.Id == id);
 
             if (accounts == null)
             {
@@ -111,9 +115,12 @@ namespace Aureum.Controllers
         {
 
             Account? account = _context.Accounts.FirstOrDefault(account => account.Id == id);
+
             if (account == null) return NotFound();
+
             _mapper.Map(accountDto, account);
             _context.SaveChanges();
+
             return NoContent();
         }
 
@@ -132,9 +139,12 @@ namespace Aureum.Controllers
         public ActionResult Patch(long id, [FromBody] PatchAccountDTO accountDto)
         {
             Account? account = _context.Accounts.FirstOrDefault(account => account.Id == id);
+
             if (account == null) return NotFound();
+
             account.UpdateAccount(accountDto.AccountType, accountDto.Price, accountDto.Description, accountDto.DateOfPurchase);
             _context.SaveChanges();
+
             return NoContent();
         }
 
@@ -151,9 +161,12 @@ namespace Aureum.Controllers
         public ActionResult Delete(long id)
         {
             Account? account = _context.Accounts.FirstOrDefault(account => account.Id == id);
+
             if (account == null) return NotFound();
+
             _context.Accounts.Remove(account);
             _context.SaveChanges();
+
             return NoContent();
         }
 

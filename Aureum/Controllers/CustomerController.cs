@@ -1,7 +1,6 @@
 ﻿using Aureum.Data;
 using Aureum.DTOs;
-using Aureum.DTOs.Account;
-using Aureum.DTOs.Customer;
+using Aureum.DTOs.CustomerDTO;
 using Aureum.Models;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;

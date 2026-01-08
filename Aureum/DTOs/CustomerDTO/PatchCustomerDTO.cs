@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 
-namespace Aureum.DTOs.Customer
+namespace Aureum.DTOs.CustomerDTO
 {
     public record PatchCustomerDTO
     {

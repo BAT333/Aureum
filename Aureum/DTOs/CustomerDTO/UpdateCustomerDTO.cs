@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Aureum.DTOs.Customer
+namespace Aureum.DTOs.CustomerDTO
 {
-    public record CreateCustomerDTO
+    public record UpdateCustomerDTO
     {
         [Required]
         [StringLength(100)]

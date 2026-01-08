@@ -8,18 +8,40 @@ namespace Aureum.Models
         [Key]
         [Required]
         public long Id { get; private set; }
-        public AccountType AccountType { get; set; }
+
+        public AccountType AccountType { get; private set; }
+
         [Required]
-        [Range(0.01, double.MaxValue)]
+        [Range(0.01, (double)decimal.MaxValue)]
         [Column(TypeName = "decimal(18, 2)")]
-        public decimal Price { get; set; }
+        public decimal Price { get; private set; }
+
         [Required(ErrorMessage = "--")]
         [StringLength(200, MinimumLength = 3)]
-        public string Description { get; set; }
-        [Required(ErrorMessage = "--")]
-        public DateOnly DateOfPurchase { get; set; }
+        public string Description { get; private set; }
 
-        public Account() { }
+        [Required(ErrorMessage = "--")]
+        public DateOnly DateOfPurchase { get; private set; }
+
+        [Required]
+        public long CustomerId { get; private set; }
+
+        public virtual Customer Customer { get; private set; }
+        //[Required]
+        //public int InvoiceIdMonthYear { get; set; }
+
+        //public virtual Invoice Invoice { get; set; }
+
+        protected Account() { }
+
+        public Account(long customerId, AccountType accountType, decimal price, string description, DateOnly dateOfPurchase)
+        {
+            CustomerId = customerId;
+            AccountType = accountType;
+            Price = price;
+            Description = description;
+            DateOfPurchase = dateOfPurchase;
+        }
         public Account(AccountType accountType, decimal price, string description, DateOnly dateOfPurchase)
         {
             this.AccountType = accountType;
@@ -27,16 +49,8 @@ namespace Aureum.Models
             this.Description = description;
             this.DateOfPurchase = dateOfPurchase;
         }
-        public Account(long id, AccountType accountType, decimal price, string description, DateOnly dateOfPurchase)
-        {
-            this.Id = id;
-            this.AccountType = accountType;
-            this.Price = price;
-            this.Description = description;
-            this.DateOfPurchase = dateOfPurchase;
-        }
 
-        public Account UpdateAccount(AccountType? accountType, decimal? price, string? description, DateOnly? dateOfPurchase)
+        internal void UpdateAccount(AccountType? accountType, decimal? price, string? description, DateOnly? dateOfPurchase)
         {
             if (accountType.HasValue)
             {
@@ -56,7 +70,6 @@ namespace Aureum.Models
 
             }
 
-            return this;
         }
     }
 }

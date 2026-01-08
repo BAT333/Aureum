@@ -1,4 +1,4 @@
-﻿using Aureum.DTOs;
+﻿using Aureum.DTOs.AccountDTO;
 using Aureum.Models;
 using AutoMapper;
 

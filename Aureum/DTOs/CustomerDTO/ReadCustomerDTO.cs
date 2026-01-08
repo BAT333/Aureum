@@ -1,4 +1,4 @@
-﻿namespace Aureum.DTOs.Customer
+﻿namespace Aureum.DTOs.CustomerDTO
 {
     public record class ReadCustomerDTO
     {
